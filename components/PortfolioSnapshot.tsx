@@ -3,7 +3,7 @@
 import { WealthsimpleUser } from "@/lib/users";
 import { AnalysisReport } from "@/lib/analyzer";
 import { Info, Lightbulb } from "lucide-react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 
 export default function PortfolioSnapshot({
     user,
