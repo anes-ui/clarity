@@ -45,7 +45,7 @@ export async function POST(req: Request) {
             : buildUserPrompt(report)
 
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
+            model: "gemini-flash-latest",
             systemInstruction: buildSystemPrompt(),
         });
 
