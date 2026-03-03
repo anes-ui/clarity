@@ -44,7 +44,10 @@ export async function POST(req: Request) {
 
         const userPrompt = buildUserPrompt(report, scenario);
 
-        const modelParams: { model: string; systemInstruction?: any } = {
+        const modelParams: {
+            model: string;
+            systemInstruction?: { role: string; parts: { text: string }[] }
+        } = {
             model: "gemini-flash-latest"
         };
 
