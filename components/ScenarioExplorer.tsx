@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { HelpCircle, Send, Sparkles } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
 
 export default function ScenarioExplorer({ userId }: { userId: string }) {
     const [scenario, setScenario] = useState("");
@@ -86,8 +87,19 @@ export default function ScenarioExplorer({ userId }: { userId: string }) {
                     <div className="mt-8 pt-8 border-t border-white/5 animate-in fade-in slide-in-from-top-4 duration-500">
                         <div className="flex items-start gap-4 p-5 bg-[#00d492]/5 rounded-xl border border-[#00d492]/10">
                             <Sparkles size={20} className="text-[#00d492] mt-1 shrink-0" />
-                            <div className="text-sm text-gray-200 space-y-4 leading-relaxed">
-                                {answer.split('\n').map((p, i) => <p key={i}>{p}</p>)}
+                            <div className="text-sm text-gray-200 mt-1 flex-1">
+                                <ReactMarkdown
+                                    components={{
+                                        p: ({ ...props }) => <p className="leading-relaxed mb-4" {...props} />,
+                                        ul: ({ ...props }) => <ul className="list-disc pl-5 mb-4 space-y-2" {...props} />,
+                                        ol: ({ ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-2" {...props} />,
+                                        li: ({ ...props }) => <li className="text-gray-300" {...props} />,
+                                        strong: ({ ...props }) => <strong className="text-white font-bold" {...props} />,
+                                        h3: ({ ...props }) => <h3 className="text-base font-bold text-white mb-2 mt-4" {...props} />,
+                                    }}
+                                >
+                                    {answer}
+                                </ReactMarkdown>
                                 {loading && <span className="inline-block w-2 h-4 bg-[#00d492] ml-1 animate-pulse" />}
                             </div>
                         </div>

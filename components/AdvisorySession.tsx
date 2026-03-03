@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Sparkles, Play, Bot, RotateCcw } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
 
 export default function AdvisorySession({
     userId
@@ -80,33 +81,20 @@ export default function AdvisorySession({
                                 <Bot size={18} />
                             </div>
                             <div className="flex-1 text-base leading-relaxed text-gray-200 space-y-4 prose prose-invert max-w-none">
-                                {advice.split('\n').map((line, i) => {
-                                    const tLine = line.trim();
-                                    if (tLine.startsWith('##')) {
-                                        return <h3 key={i} className="text-lg font-bold text-white pt-4 pb-2 border-b border-white/10 uppercase tracking-widest text-[#00d492]">{tLine.replace(/#+\s*/, '')}</h3>
-                                    }
-                                    if (tLine.startsWith('- ')) {
-                                        return <li key={i} className="ml-4 list-disc">{tLine.replace('- ', '')}</li>
-                                    }
-                                    if (tLine === '***' || tLine === '---') {
-                                        return <hr key={i} className="my-6 border-white/10 border-t" />
-                                    }
-                                    if (tLine === "") return <br key={i} />;
-
-                                    // Parse inline bolding **text**
-                                    const parts = tLine.split(/(\*\*.*?\*\*)/g);
-
-                                    return (
-                                        <p key={i}>
-                                            {parts.map((part, index) => {
-                                                if (part.startsWith('**') && part.endsWith('**')) {
-                                                    return <strong key={index} className="text-white font-bold">{part.slice(2, -2)}</strong>;
-                                                }
-                                                return part;
-                                            })}
-                                        </p>
-                                    );
-                                })}
+                                <ReactMarkdown
+                                    components={{
+                                        h2: ({ ...props }) => <h2 className="text-lg font-bold text-white pt-6 pb-2 border-b border-white/10 uppercase tracking-widest text-[#00d492] mb-4" {...props} />,
+                                        h3: ({ ...props }) => <h3 className="text-md font-bold text-white pt-4 pb-2 mb-2" {...props} />,
+                                        p: ({ ...props }) => <p className="leading-relaxed mb-4" {...props} />,
+                                        ul: ({ ...props }) => <ul className="list-disc pl-5 mb-6 space-y-2" {...props} />,
+                                        ol: ({ ...props }) => <ol className="list-decimal pl-5 mb-6 space-y-2" {...props} />,
+                                        li: ({ ...props }) => <li className="text-gray-200" {...props} />,
+                                        strong: ({ ...props }) => <strong className="text-white font-bold" {...props} />,
+                                        hr: ({ ...props }) => <hr className="my-8 border-white/10 border-t" {...props} />,
+                                    }}
+                                >
+                                    {advice}
+                                </ReactMarkdown>
                                 {isLoading && (
                                     <div className="flex items-center gap-2 text-[#00d492] font-medium italic animate-pulse mt-4">
                                         <Sparkles size={14} />
