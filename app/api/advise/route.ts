@@ -3,14 +3,17 @@ import { getUserById } from "@/lib/users";
 import { runFullAnalysis } from "@/lib/analyzer";
 import { buildSystemPrompt, buildUserPrompt } from "@/lib/prompts";
 
-const apiKey = process.env.GEMINI_API_KEY; // Use environment variable for security
-if (!apiKey) {
-    throw new Error("GEMINI_API_KEY is not defined in environment variables");
-}
-const genAI = new GoogleGenerativeAI(apiKey);
+const getGenAI = () => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+        throw new Error("GEMINI_API_KEY is not defined in environment variables");
+    }
+    return new GoogleGenerativeAI(apiKey);
+};
 
 export async function POST(req: Request) {
     try {
+        const genAI = getGenAI();
         const { userId, scenario } = await req.json()
         const user = getUserById(userId)
 
