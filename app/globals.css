@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 10;
+  --background-end-rgb: 0, 0, 0;
+  --ws-green: #00d492;
+  --ws-amber: #ffb800;
+  --ws-red: #ff4d4d;
+  --ws-card: #1a1a1a;
+  --ws-border: #2e2e2e;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  font-family: 'Geist', sans-serif;
+}
+
+@layer components {
+  .ws-card {
+    @apply bg-[#1a1a1a] border border-[#2e2e2e] rounded-xl p-6 transition-all duration-200;
+  }
+  
+  .ws-btn-primary {
+    @apply bg-[#00d492] text-black font-semibold py-3 px-6 rounded-lg hover:bg-[#00b37a] transition-colors flex items-center justify-center gap-2;
+  }
+
+  .premium-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
+  }
+}

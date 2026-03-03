@@ -1,0 +1,20 @@
+WHAT THE HUMAN CAN DO NOW THAT THEY COULDN'T BEFORE
+
+Wealthsimple's 3 million users can now get a personalized financial consultation in 60 seconds — one that knows their exact RRSP room, TFSA utilization, goal drift, provincial tax bracket, and life stage. Before Clarity, this required either a $300/hr human advisor or hours of self-research that most users never do. The guidance they were getting was generic (a robo-portfolio) or absent. Now it's specific, explained, and always available. A 29-year-old who just got a raise and hasn't touched her RRSP gets told exactly what she's leaving on the table and why. A 57-year-old who just inherited $85K gets prepared for the advisor conversation she needs — briefed, not blindsided.
+
+WHAT AI IS RESPONSIBLE FOR
+
+- Synthesizing a user's complete financial picture across account types
+- Identifying optimization gaps: RRSP/TFSA decisions, contribution room, portfolio drift from target allocation, goal shortfalls
+- Calculating province-specific tax implications and refund opportunities
+- Generating a prioritized, numbered action list with plain-language explanations
+- Running "what if" scenario analysis (retire at 60 vs 65, increase contributions)
+- Deciding when to escalate — and preparing the brief a human advisor would read
+
+WHERE AI MUST STOP
+
+Clarity stops at any recommendation involving an irreversible, high-stakes financial action: early RRSP withdrawal, leveraged investing, liquidating a significant position, or decisions that depend on context the user hasn't disclosed. The boundary isn't capability — Claude can model all of these. The boundary is accountability. A licensed human advisor is regulated, insured, and liable. They can ask what isn't in the data. They own the outcome. Clarity's role in these moments is to prepare the user: present the analysis, surface the right questions, and hand off cleanly. The advisor arrives to a briefed client, not a cold conversation.
+
+WHAT WOULD BREAK FIRST AT SCALE
+
+At 3M users, the failure mode isn't AI quality — it's trust calibration. Users will vary wildly in financial literacy, and advice that's well-calibrated for a 29-year-old engineer may land wrong with a 65-year-old who has never touched an investment app. The system needs a confidence layer: Clarity should know what it doesn't know about a user (missing income data, undisclosed debts, incomplete goal definitions) and factor that uncertainty into tone and specificity. Advice given on incomplete data must say so — clearly. The second failure mode is compliance: financial advice is regulated in Canada. Clarity must stay on the right side of the "guidance vs. advice" distinction, which means the system prompt, escalation logic, and human-in-the-loop architecture aren't implementation details — they're regulatory requirements.
