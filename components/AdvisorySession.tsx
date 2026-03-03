@@ -81,14 +81,31 @@ export default function AdvisorySession({
                             </div>
                             <div className="flex-1 text-base leading-relaxed text-gray-200 space-y-4 prose prose-invert max-w-none">
                                 {advice.split('\n').map((line, i) => {
-                                    if (line.startsWith('##')) {
-                                        return <h3 key={i} className="text-lg font-bold text-white pt-4 pb-2 border-b border-white/10 uppercase tracking-widest text-[#00d492]">{line.replace('## ', '')}</h3>
+                                    const tLine = line.trim();
+                                    if (tLine.startsWith('##')) {
+                                        return <h3 key={i} className="text-lg font-bold text-white pt-4 pb-2 border-b border-white/10 uppercase tracking-widest text-[#00d492]">{tLine.replace(/#+\s*/, '')}</h3>
                                     }
-                                    if (line.startsWith('- ')) {
-                                        return <li key={i} className="ml-4 list-disc">{line.replace('- ', '')}</li>
+                                    if (tLine.startsWith('- ')) {
+                                        return <li key={i} className="ml-4 list-disc">{tLine.replace('- ', '')}</li>
                                     }
-                                    if (line.trim() === "") return <br key={i} />;
-                                    return <p key={i}>{line}</p>;
+                                    if (tLine === '***' || tLine === '---') {
+                                        return <hr key={i} className="my-6 border-white/10 border-t" />
+                                    }
+                                    if (tLine === "") return <br key={i} />;
+
+                                    // Parse inline bolding **text**
+                                    const parts = tLine.split(/(\*\*.*?\*\*)/g);
+
+                                    return (
+                                        <p key={i}>
+                                            {parts.map((part, index) => {
+                                                if (part.startsWith('**') && part.endsWith('**')) {
+                                                    return <strong key={index} className="text-white font-bold">{part.slice(2, -2)}</strong>;
+                                                }
+                                                return part;
+                                            })}
+                                        </p>
+                                    );
                                 })}
                                 {isLoading && (
                                     <div className="flex items-center gap-2 text-[#00d492] font-medium italic animate-pulse mt-4">
