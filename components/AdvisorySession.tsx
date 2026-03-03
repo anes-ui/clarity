@@ -53,52 +53,53 @@ export default function AdvisorySession({
     };
 
     return (
-        <div className="ws-card bg-[#111] border-l-4 border-l-[#00d492] min-h-[400px] flex flex-col">
-            <div className="flex-1 overflow-y-auto p-4 custom-scrollbar" ref={scrollRef}>
+        <div className="bg-ws-surface-0 border border-ws-border border-l-[3px] border-l-ws-green rounded-2xl min-h-[400px] flex flex-col overflow-hidden">
+            <div className="flex-1 overflow-y-auto p-8 custom-scrollbar" ref={scrollRef}>
                 {!hasStarted ? (
-                    <div className="h-full flex flex-col items-center justify-center text-center p-8 space-y-6">
-                        <div className="w-16 h-16 bg-[#00d492]/10 rounded-full flex items-center justify-center text-[#00d492]">
-                            <Sparkles size={32} />
+                    <div className="h-full flex flex-col items-center justify-center text-center py-12 space-y-8">
+                        <div className="w-[72px] h-[72px] bg-ws-green-muted rounded-full flex items-center justify-center text-ws-green mb-2">
+                            <Sparkles size={36} />
                         </div>
-                        <div className="space-y-2">
-                            <h4 className="text-xl font-bold text-white tracking-tight">Personalized Guidance</h4>
-                            <p className="text-sm text-gray-500 max-w-xs">
+                        <div className="space-y-3">
+                            <h4 className="text-[24px] font-semibold text-ws-dune tracking-tight">Personalized Guidance</h4>
+                            <p className="text-[16px] text-ws-text-secondary max-w-[320px] mx-auto leading-[1.6]">
                                 Get a deep-dive analysis of your current financial trajectory and actionable next steps.
                             </p>
                         </div>
                         <button
                             onClick={startSession}
-                            className="ws-btn-primary w-full max-w-[200px]"
+                            className="ws-btn-accent mt-4"
                         >
-                            <Play size={18} fill="currentColor" />
+                            <Play size={16} fill="currentColor" />
                             Get Your Guidance
                         </button>
                     </div>
                 ) : (
                     <div className="space-y-6">
-                        <div className="flex items-start gap-4">
-                            <div className="w-8 h-8 rounded bg-[#00d492] flex items-center justify-center text-black shrink-0">
-                                <Bot size={18} />
+                        <div className="flex items-start gap-5">
+                            <div className="w-10 h-10 rounded-full bg-ws-green-muted flex items-center justify-center text-ws-green shrink-0 mt-1">
+                                <Bot size={20} />
                             </div>
-                            <div className="flex-1 text-base leading-relaxed text-gray-200 space-y-4 prose prose-invert max-w-none">
+                            <div className="flex-1 text-[15px] leading-[1.8] text-ws-text-primary mt-1">
                                 <ReactMarkdown
                                     components={{
-                                        h2: ({ ...props }) => <h2 className="text-lg font-bold text-white pt-6 pb-2 border-b border-white/10 uppercase tracking-widest text-[#00d492] mb-4" {...props} />,
-                                        h3: ({ ...props }) => <h3 className="text-md font-bold text-white pt-4 pb-2 mb-2" {...props} />,
-                                        p: ({ ...props }) => <p className="leading-relaxed mb-4" {...props} />,
-                                        ul: ({ ...props }) => <ul className="list-disc pl-5 mb-6 space-y-2" {...props} />,
-                                        ol: ({ ...props }) => <ol className="list-decimal pl-5 mb-6 space-y-2" {...props} />,
-                                        li: ({ ...props }) => <li className="text-gray-200" {...props} />,
-                                        strong: ({ ...props }) => <strong className="text-white font-bold" {...props} />,
-                                        hr: ({ ...props }) => <hr className="my-8 border-white/10 border-t" {...props} />,
+                                        h2: ({ ...props }) => <h2 className="text-[17px] font-semibold text-ws-dune mt-8 mb-4 tracking-tight" {...props} />,
+                                        h3: ({ ...props }) => <h3 className="text-[16px] font-semibold text-ws-dune pt-4 pb-2 mb-2" {...props} />,
+                                        p: ({ ...props }) => <p className="mb-4 text-ws-text-secondary" {...props} />,
+                                        ul: ({ ...props }) => <ul className="list-disc pl-5 mb-6 space-y-2 text-ws-text-secondary" {...props} />,
+                                        ol: ({ ...props }) => <ol className="list-decimal pl-5 mb-6 space-y-2 text-ws-text-secondary" {...props} />,
+                                        li: ({ ...props }) => <li className="pl-1" {...props} />,
+                                        strong: ({ ...props }) => <strong className="text-ws-dune font-semibold" {...props} />,
+                                        hr: ({ ...props }) => <hr className="my-8 border-ws-border border-t" {...props} />,
                                     }}
                                 >
                                     {advice}
                                 </ReactMarkdown>
                                 {isLoading && (
-                                    <div className="flex items-center gap-2 text-[#00d492] font-medium italic animate-pulse mt-4">
-                                        <Sparkles size={14} />
-                                        <span>Clarity is thinking...</span>
+                                    <div className="flex items-center gap-1.5 mt-4 opacity-70 mb-8">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-ws-green animate-pulse" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-ws-green animate-pulse delay-75" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-ws-green animate-pulse delay-150" />
                                     </div>
                                 )}
                             </div>
@@ -107,18 +108,18 @@ export default function AdvisorySession({
                 )}
 
                 {error && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-center mt-4">
-                        <p className="text-red-400 text-sm font-medium">{error}</p>
-                        <button onClick={startSession} className="text-xs text-white underline mt-1">Retry</button>
+                    <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-center mt-6">
+                        <p className="text-red-700 text-[14px] font-medium">{error}</p>
+                        <button onClick={startSession} className="text-[12px] font-semibold text-red-700 underline mt-2">Retry</button>
                     </div>
                 )}
             </div>
 
             {hasStarted && !isLoading && !error && (
-                <div className="p-4 border-t border-white/5 bg-black/20 flex justify-end">
+                <div className="px-6 py-4 border-t border-ws-border bg-ws-surface-1 flex justify-end">
                     <button
                         onClick={startSession}
-                        className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#00d492] hover:bg-[#00d492]/10 px-4 py-2 rounded transition-colors"
+                        className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-widest text-ws-text-muted hover:text-ws-dune px-4 py-2 rounded-md transition-colors"
                     >
                         <RotateCcw size={14} /> Regenerate
                     </button>

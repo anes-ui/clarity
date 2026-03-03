@@ -1,4 +1,4 @@
-import { ShieldAlert, Users, ArrowRight } from "lucide-react";
+import { Users, ArrowRight } from "lucide-react";
 
 export default function EscalationCard({
     reason,
@@ -8,25 +8,24 @@ export default function EscalationCard({
     userName: string;
 }) {
     return (
-        <div className="ws-card bg-amber-500/10 border border-amber-500/40 p-8 flex flex-col md:flex-row items-center gap-8 shadow-[0_0_30px_rgba(245,158,11,0.15)] animate-pulse relative overflow-hidden">
-            <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-500 shrink-0 border border-amber-500/30">
-                <ShieldAlert size={32} />
+        <div className="bg-[#FFF9EE] border border-[#F5A62340] border-l-[4px] border-l-ws-amber rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden text-ws-dune">
+            <div className="w-16 h-16 bg-[#F5A62315] rounded-full flex items-center justify-center text-ws-amber shrink-0">
+                <Users size={32} />
             </div>
 
             <div className="flex-1 space-y-3 text-center md:text-left">
-                <h4 className="text-xl font-bold text-white tracking-tight">This decision needs a conversation.</h4>
+                <h4 className="text-[20px] font-semibold tracking-tight">A conversation worth having.</h4>
                 <div className="space-y-4">
-                    <p className="text-amber-200/80 text-sm font-medium italic">&quot;{reason}&quot;</p>
-                    <p className="text-gray-400 text-sm max-w-2xl leading-relaxed">
+                    <p className="text-[#C27A00] text-[15px] font-medium leading-relaxed italic">&quot;{reason}&quot;</p>
+                    <p className="text-ws-text-secondary text-[15px] max-w-2xl leading-[1.6]">
                         While Clarity can provide general insights, your current situation involves irreversible strategic shifts or potential tax complexities that require human nuance. A Wealthsimple Portfolio Manager will review your case to ensure your {userName} family legacy is fully protected.
                     </p>
                 </div>
             </div>
 
             <div className="shrink-0 w-full md:w-auto">
-                <button className="w-full bg-amber-500 text-black font-bold py-3 px-8 rounded-lg hover:bg-amber-400 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-xs">
-                    <Users size={16} />
-                    Talk to a Wealthsimple Advisor
+                <button className="w-full bg-ws-dune text-ws-white font-semibold py-[14px] px-[28px] rounded-full hover:bg-[#4A4745] transition-colors flex items-center justify-center gap-2 text-[14px]">
+                    Talk to an Advisor
                     <ArrowRight size={16} />
                 </button>
             </div>

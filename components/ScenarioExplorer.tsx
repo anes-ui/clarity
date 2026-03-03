@@ -43,21 +43,21 @@ export default function ScenarioExplorer({ userId }: { userId: string }) {
 
     return (
         <div className="mt-12 space-y-6">
-            <div className="flex items-center gap-2 text-xs font-bold text-gray-500 uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-[12px] font-bold text-ws-text-muted uppercase tracking-[0.08em]">
                 <HelpCircle size={16} /> What-if Simulator
             </div>
 
-            <div className="ws-card bg-white/[0.02] border border-white/5 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="ws-card space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {presets.map((p) => (
                         <button
                             key={p.label}
                             onClick={() => runScenario(p.prompt)}
                             disabled={loading}
-                            className="px-4 py-4 text-center bg-white/5 border border-white/10 rounded-xl hover:border-[#00d492]/50 hover:bg-[#00d492]/5 transition-all group disabled:opacity-50"
+                            className="px-5 py-5 text-left bg-ws-surface-0 border border-ws-border rounded-[12px] hover:border-ws-green transition-all group disabled:opacity-50"
                         >
-                            <p className="text-[10px] font-bold text-[#00d492] uppercase tracking-widest mb-1.5">{p.label}</p>
-                            <p className="text-xs text-gray-300 group-hover:text-white transition-colors line-clamp-2 leading-relaxed">
+                            <p className="text-[12px] font-bold text-ws-green uppercase tracking-[0.05em] mb-2">{p.label}</p>
+                            <p className="text-[14px] text-ws-text-secondary group-hover:text-ws-text-primary transition-colors line-clamp-2 leading-[1.6]">
                                 {p.prompt}
                             </p>
                         </button>
@@ -71,36 +71,42 @@ export default function ScenarioExplorer({ userId }: { userId: string }) {
                         onChange={(e) => setScenario(e.target.value)}
                         disabled={loading}
                         placeholder="Ask your own question..."
-                        className="w-full bg-black border border-white/10 rounded-lg py-4 px-5 pr-14 text-sm focus:border-[#00d492] outline-none transition-colors disabled:opacity-50"
+                        className="ws-input w-full pr-14"
                         onKeyDown={(e) => e.key === 'Enter' && runScenario(scenario)}
                     />
                     <button
                         onClick={() => runScenario(scenario)}
                         disabled={loading || !scenario}
-                        className="absolute right-3 top-2.5 p-2 text-[#00d492] hover:bg-[#00d492]/10 rounded-md transition-colors disabled:opacity-50"
+                        className="absolute right-3 top-2.5 p-2 text-ws-green hover:bg-ws-green-muted rounded-md transition-colors disabled:opacity-50"
                     >
                         <Send size={20} />
                     </button>
                 </div>
 
                 {answer && (
-                    <div className="mt-8 pt-8 border-t border-white/5 animate-in fade-in slide-in-from-top-4 duration-500">
-                        <div className="flex items-start gap-4 p-5 bg-[#00d492]/5 rounded-xl border border-[#00d492]/10">
-                            <Sparkles size={20} className="text-[#00d492] mt-1 shrink-0" />
-                            <div className="text-sm text-gray-200 mt-1 flex-1">
+                    <div className="mt-8 pt-8 border-t border-ws-border animate-in fade-in slide-in-from-top-4 duration-500">
+                        <div className="flex items-start gap-4 p-6 bg-ws-surface-0 rounded-2xl border border-ws-border">
+                            <Sparkles size={20} className="text-ws-green mt-1 shrink-0" />
+                            <div className="text-[15px] text-ws-text-primary mt-1 flex-1 leading-[1.6]">
                                 <ReactMarkdown
                                     components={{
-                                        p: ({ ...props }) => <p className="leading-relaxed mb-4" {...props} />,
+                                        p: ({ ...props }) => <p className="mb-4" {...props} />,
                                         ul: ({ ...props }) => <ul className="list-disc pl-5 mb-4 space-y-2" {...props} />,
                                         ol: ({ ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-2" {...props} />,
-                                        li: ({ ...props }) => <li className="text-gray-300" {...props} />,
-                                        strong: ({ ...props }) => <strong className="text-white font-bold" {...props} />,
-                                        h3: ({ ...props }) => <h3 className="text-base font-bold text-white mb-2 mt-4" {...props} />,
+                                        li: ({ ...props }) => <li className="text-ws-text-secondary" {...props} />,
+                                        strong: ({ ...props }) => <strong className="text-ws-dune font-semibold" {...props} />,
+                                        h3: ({ ...props }) => <h3 className="text-[17px] font-semibold text-ws-dune mb-3 mt-5" {...props} />,
                                     }}
                                 >
                                     {answer}
                                 </ReactMarkdown>
-                                {loading && <span className="inline-block w-2 h-4 bg-[#00d492] ml-1 animate-pulse" />}
+                                {loading && (
+                                    <div className="flex items-center gap-1.5 mt-2 opacity-70">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-ws-green animate-pulse" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-ws-green animate-pulse delay-75" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-ws-green animate-pulse delay-150" />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

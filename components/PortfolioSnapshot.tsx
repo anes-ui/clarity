@@ -20,35 +20,35 @@ export default function PortfolioSnapshot({
     ];
 
     const currentData = [
-        { name: "Equities", value: user.portfolio.currentAllocation.equities, color: "#00d492" },
-        { name: "Bonds", value: user.portfolio.currentAllocation.bonds, color: "#3b82f6" },
-        { name: "Cash", value: user.portfolio.currentAllocation.cash, color: "#4b5563" },
+        { name: "Equities", value: user.portfolio.currentAllocation.equities, color: "var(--ws-green)" },
+        { name: "Bonds", value: user.portfolio.currentAllocation.bonds, color: "#92A2B1" },
+        { name: "Cash", value: user.portfolio.currentAllocation.cash, color: "#D1D5DB" },
     ];
 
     const targetData = [
         { name: "Equities", value: user.portfolio.targetAllocation.equities, color: "#00d49280" },
-        { name: "Bonds", value: user.portfolio.targetAllocation.bonds, color: "#3b82f680" },
-        { name: "Cash", value: user.portfolio.targetAllocation.cash, color: "#4b556380" },
+        { name: "Bonds", value: user.portfolio.targetAllocation.bonds, color: "#92A2B180" },
+        { name: "Cash", value: user.portfolio.targetAllocation.cash, color: "#D1D5DB80" },
     ];
 
     return (
-        <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-8">
+            <div className="grid grid-cols-2 gap-4">
                 {accounts.map((acc) => {
                     const gap = report.gaps.find(g => g.category === acc.key);
                     const hasBigGap = gap && (gap.priority === "high" || gap.priority === "critical");
 
                     return (
-                        <div key={acc.label} className={`ws-card p-5 bg-white/5 border ${hasBigGap ? 'border-amber-500/50 bg-amber-500/5' : 'border-white/5'}`}>
-                            <p className="text-xs font-bold uppercase text-gray-400 mb-1">{acc.label}</p>
-                            <p className="text-3xl font-bold tracking-tight">${acc.value.toLocaleString()}</p>
+                        <div key={acc.label} className={`ws-card ${hasBigGap ? '!border-ws-amber' : ''}`}>
+                            <p className="text-[12px] font-bold uppercase text-ws-text-muted mb-1 tracking-[0.08em]">{acc.label}</p>
+                            <p className="text-[28px] font-bold tracking-tight text-ws-dune">${acc.value.toLocaleString()}</p>
                             {hasBigGap && (
-                                <div className="mt-3 flex flex-col gap-1.5">
-                                    <div className="inline-flex w-fit items-center gap-1.5 text-xs text-amber-400 font-bold bg-amber-400/20 px-2 py-1 rounded">
+                                <div className="mt-4 flex flex-col gap-2">
+                                    <div className="inline-flex w-fit items-center gap-1.5 text-[12px] text-[#C27A00] font-bold bg-[#F5A62320] px-2.5 py-1 rounded-md">
                                         <Lightbulb size={14} />
                                         <span>${acc.room?.toLocaleString()} unused room</span>
                                     </div>
-                                    <span className="text-[10px] text-amber-500/80 font-medium uppercase tracking-widest pl-1">
+                                    <span className="text-[11px] text-[#C27A00] font-semibold uppercase tracking-widest pl-1">
                                         ↳ {acc.label === "RRSP" ? "Maximize tax refund" : "Shield growth from tax"}
                                     </span>
                                 </div>
@@ -58,15 +58,15 @@ export default function PortfolioSnapshot({
                 })}
             </div>
 
-            <div className="ws-card bg-[#111] p-6">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-6 flex items-center gap-2">
-                    <Info size={14} /> Allocation vs Target
+            <div className="ws-card">
+                <h4 className="text-[12px] font-bold uppercase tracking-[0.08em] text-ws-text-muted mb-8 flex items-center gap-2">
+                    <Info size={16} /> Allocation vs Target
                 </h4>
 
                 <div className="flex flex-col md:flex-row items-center justify-around gap-8">
                     {/* Current Allocation */}
                     <div className="flex flex-col items-center">
-                        <p className="text-xs uppercase font-bold text-white mb-2 tracking-widest">Current</p>
+                        <p className="text-[12px] uppercase font-bold text-ws-dune mb-4 tracking-[0.08em]">Current</p>
                         <div className="h-32 w-32 relative">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -74,7 +74,7 @@ export default function PortfolioSnapshot({
                                         data={currentData}
                                         innerRadius={35}
                                         outerRadius={50}
-                                        paddingAngle={5}
+                                        paddingAngle={4}
                                         dataKey="value"
                                         stroke="none"
                                     >
@@ -85,11 +85,11 @@ export default function PortfolioSnapshot({
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-                        <div className="mt-4 flex gap-3 text-[10px] font-bold uppercase tracking-widest">
+                        <div className="mt-6 flex gap-4 text-[12px] font-bold uppercase tracking-widest text-[#32302F]">
                             {currentData.map(d => (
-                                <div key={d.name} className="flex items-center gap-1">
-                                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: d.color }} />
-                                    <span style={{ color: d.color }}>{d.value}% <span className="text-gray-500">{d.name}</span></span>
+                                <div key={d.name} className="flex items-center gap-1.5">
+                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color.startsWith('var') ? '#00d492' : d.color }} />
+                                    <span>{d.value}% <span className="text-ws-text-muted font-semibold">{d.name}</span></span>
                                 </div>
                             ))}
                         </div>
@@ -97,15 +97,15 @@ export default function PortfolioSnapshot({
 
                     {/* Target Allocation */}
                     <div className="flex flex-col items-center">
-                        <p className="text-xs uppercase font-bold text-gray-500 mb-2 tracking-widest">Target</p>
-                        <div className="h-32 w-32 relative">
+                        <p className="text-[12px] uppercase font-bold text-ws-text-muted mb-4 tracking-[0.08em]">Target</p>
+                        <div className="h-32 w-32 relative opacity-80">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
                                         data={targetData}
                                         innerRadius={35}
                                         outerRadius={50}
-                                        paddingAngle={5}
+                                        paddingAngle={4}
                                         dataKey="value"
                                         stroke="none"
                                     >
@@ -116,11 +116,11 @@ export default function PortfolioSnapshot({
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-                        <div className="mt-4 flex gap-3 text-[10px] font-bold uppercase tracking-widest opacity-70">
+                        <div className="mt-6 flex gap-4 text-[12px] font-bold uppercase tracking-widest opacity-60 text-[#32302F]">
                             {targetData.map(d => (
-                                <div key={d.name} className="flex items-center gap-1">
-                                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: d.color.replace('80', '') }} />
-                                    <span style={{ color: d.color.replace('80', '') }}>{d.value}% <span className="text-gray-500">{d.name}</span></span>
+                                <div key={d.name} className="flex items-center gap-1.5">
+                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color.replace('80', '') }} />
+                                    <span>{d.value}% <span className="text-ws-text-muted font-semibold">{d.name}</span></span>
                                 </div>
                             ))}
                         </div>

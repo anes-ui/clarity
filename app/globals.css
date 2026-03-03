@@ -1,41 +1,74 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 10, 10, 10;
-  --background-end-rgb: 0, 0, 0;
+  /* Core */
+  --ws-dune: #32302F;
+  --ws-white: #FFFFFF;
   --ws-green: #00d492;
-  --ws-amber: #ffb800;
-  --ws-red: #ff4d4d;
-  --ws-card: #1a1a1a;
-  --ws-border: #2e2e2e;
+  --ws-green-muted: #00d49220;
+
+  /* Surface hierarchy */
+  --ws-surface-0: #FFFFFF;
+  --ws-surface-1: #F7F6F5;
+  --ws-surface-2: #EDEBE8;
+
+  /* Semantic */
+  --ws-amber: #F5A623;
+  --ws-red: #E5533D;
+  --ws-text-primary: #32302F;
+  --ws-text-secondary: #6B6560;
+  --ws-text-muted: #A09890;
+
+  /* Border */
+  --ws-border: #E8E5E1;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  font-family: 'Geist', sans-serif;
+  color: var(--ws-text-primary);
+  background: var(--ws-surface-0);
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+.display {
+  font-family: 'Playfair Display', serif;
+}
+
+button,
+label,
+p,
+span {
+  font-family: 'DM Sans', sans-serif;
 }
 
 @layer components {
   .ws-card {
-    @apply bg-[#1a1a1a] border border-[#2e2e2e] rounded-xl p-6 transition-all duration-200;
-  }
-  
-  .ws-btn-primary {
-    @apply bg-[#00d492] text-black font-semibold py-3 px-6 rounded-lg hover:bg-[#00b37a] transition-colors flex items-center justify-center gap-2;
+    @apply bg-[var(--ws-surface-1)] border border-[var(--ws-border)] rounded-2xl p-6 transition-colors duration-200 hover:border-[var(--ws-green)];
+    box-shadow: none;
   }
 
-  .premium-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
+  .ws-btn-primary {
+    @apply bg-[var(--ws-dune)] text-[var(--ws-white)] font-semibold py-[14px] px-[28px] rounded-full hover:bg-[#4A4745] transition-colors flex items-center justify-center gap-2;
+    font-size: 14px;
+  }
+
+  .ws-btn-accent {
+    @apply bg-[var(--ws-green)] text-[var(--ws-dune)] font-bold py-[14px] px-[28px] rounded-full hover:bg-[#00b37a] transition-colors flex items-center justify-center gap-2;
+    font-size: 14px;
+  }
+
+  .ws-btn-secondary {
+    @apply bg-transparent border-[1.5px] border-[var(--ws-border)] text-[var(--ws-text-primary)] font-semibold py-[14px] px-[28px] rounded-full hover:border-[var(--ws-dune)] transition-colors flex items-center justify-center gap-2;
+    font-size: 14px;
+  }
+
+  .ws-input {
+    @apply bg-[var(--ws-surface-2)] border border-[var(--ws-border)] rounded-xl py-3 px-4 text-[15px] focus:border-[var(--ws-green)] outline-none transition-colors;
   }
 }
