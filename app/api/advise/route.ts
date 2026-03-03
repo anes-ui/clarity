@@ -1,9 +1,10 @@
-import Anthropic from "@anthropic-ai/sdk"
-import { getUserById } from "@/lib/users"
-import { runFullAnalysis } from "@/lib/analyzer"
-import { buildSystemPrompt, buildUserPrompt } from "@/lib/prompts"
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getUserById } from "@/lib/users";
+import { runFullAnalysis } from "@/lib/analyzer";
+import { buildSystemPrompt, buildUserPrompt } from "@/lib/prompts";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+const apiKey = process.env.GEMINI_API_KEY || "AIzaSyB_rOxxkl_tN00r9mwUlUWYFjJpF9SoCVY"; // Fallback to provided key for demo
+const genAI = new GoogleGenerativeAI(apiKey);
 
 export async function POST(req: Request) {
     try {
@@ -43,24 +44,22 @@ export async function POST(req: Request) {
             ? buildUserPrompt(report) + `\n\nSCENARIO QUESTION: ${scenario}`
             : buildUserPrompt(report)
 
-        const stream = await client.messages.stream({
-            model: "claude-3-5-sonnet-20241022", // Using an actual available model based on the requested format
-            max_tokens: 1500,
-            system: buildSystemPrompt(),
-            messages: [{ role: "user", content: userPrompt }],
-        })
+        const model = genAI.getGenerativeModel({
+            model: "gemini-1.5-flash",
+            systemInstruction: buildSystemPrompt(),
+        });
 
-        const encoder = new TextEncoder()
+        const result = await model.generateContentStream(userPrompt);
+
+        const encoder = new TextEncoder();
         const readable = new ReadableStream({
             async start(controller) {
-                for await (const chunk of stream) {
-                    if (chunk.type === "content_block_delta" && chunk.delta.type === "text_delta") {
-                        controller.enqueue(encoder.encode(chunk.delta.text))
-                    }
+                for await (const chunk of result.stream) {
+                    controller.enqueue(encoder.encode(chunk.text()));
                 }
-                controller.close()
+                controller.close();
             },
-        })
+        });
 
         return new Response(readable, {
             headers: { "Content-Type": "text/plain; charset=utf-8" }
