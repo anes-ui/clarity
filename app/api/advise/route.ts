@@ -3,7 +3,10 @@ import { getUserById } from "@/lib/users";
 import { runFullAnalysis } from "@/lib/analyzer";
 import { buildSystemPrompt, buildUserPrompt } from "@/lib/prompts";
 
-const apiKey = process.env.GEMINI_API_KEY || "AIzaSyB_rOxxkl_tN00r9mwUlUWYFjJpF9SoCVY"; // Fallback to provided key for demo
+const apiKey = process.env.GEMINI_API_KEY; // Use environment variable for security
+if (!apiKey) {
+    throw new Error("GEMINI_API_KEY is not defined in environment variables");
+}
 const genAI = new GoogleGenerativeAI(apiKey);
 
 export async function POST(req: Request) {
@@ -41,15 +44,18 @@ export async function POST(req: Request) {
 
         const userPrompt = buildUserPrompt(report, scenario);
 
-        // For scenario exploration, use a more relaxed system prompt so it focuses exclusively on the math and answer
-        const systemPrompt = scenario
-            ? `You are Clarity, Wealthsimple's AI financial guidance engine. Answer the user's specific scenario question based on their profile. Do not output a full analysis or use the standard report format.`
-            : buildSystemPrompt();
+        const modelParams: any = {
+            model: "gemini-flash-latest"
+        };
 
-        const model = genAI.getGenerativeModel({
-            model: "gemini-flash-latest",
-            systemInstruction: systemPrompt,
-        });
+        if (!scenario) {
+            modelParams.systemInstruction = {
+                role: "system",
+                parts: [{ text: buildSystemPrompt() }]
+            };
+        }
+
+        const model = genAI.getGenerativeModel(modelParams);
 
         const result = await model.generateContentStream(userPrompt);
 
