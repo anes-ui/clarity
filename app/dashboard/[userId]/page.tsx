@@ -63,9 +63,10 @@ export default function Dashboard({ params }: { params: { userId: string } }) {
 
                             <div className="ws-card">
                                 <p className="text-[12px] font-semibold text-ws-text-muted uppercase tracking-[0.08em] mb-2">Total Combined Net Worth</p>
-                                <div className="flex items-end gap-3 text-ws-dune">
-                                    <h2 className="text-[48px] font-semibold tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-                                        ${report.netWorth.toLocaleString()}
+                                <div className="flex items-baseline gap-1 text-ws-dune">
+                                    <span className="text-[24px] font-medium text-ws-text-muted self-start mt-2">$</span>
+                                    <h2 className="text-[56px] font-bold tracking-tight font-sans">
+                                        {report.netWorth.toLocaleString()}
                                     </h2>
                                     <div className="mb-2.5 flex items-center gap-1 text-[13px] font-bold text-ws-green bg-ws-green-muted px-2.5 py-1 rounded-md">
                                         <ArrowUpRight size={14} />

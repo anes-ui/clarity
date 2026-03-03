@@ -41,12 +41,18 @@ export default function PortfolioSnapshot({
                     return (
                         <div key={acc.label} className={`ws-card ${hasBigGap ? '!border-ws-amber' : ''}`}>
                             <p className="text-[12px] font-bold uppercase text-ws-text-muted mb-1 tracking-[0.08em]">{acc.label}</p>
-                            <p className="text-[28px] font-bold tracking-tight text-ws-dune">${acc.value.toLocaleString()}</p>
+                            <div className="flex items-baseline gap-0.5 text-ws-dune">
+                                <span className="text-[14px] font-medium text-ws-text-muted self-start mt-1">$</span>
+                                <p className="text-[28px] font-bold tracking-tight leading-none">{acc.value.toLocaleString()}</p>
+                            </div>
                             {hasBigGap && (
                                 <div className="mt-4 flex flex-col gap-2">
                                     <div className="inline-flex w-fit items-center gap-1.5 text-[12px] text-[#C27A00] font-bold bg-[#F5A62320] px-2.5 py-1 rounded-md">
                                         <Lightbulb size={14} />
-                                        <span>${acc.room?.toLocaleString()} unused room</span>
+                                        <span className="flex items-baseline gap-0.5">
+                                            <span className="text-[10px]">$</span>
+                                            <span>{acc.room?.toLocaleString()} unused room</span>
+                                        </span>
                                     </div>
                                     <span className="text-[11px] text-[#C27A00] font-semibold uppercase tracking-widest pl-1">
                                         ↳ {acc.label === "RRSP" ? "Maximize tax refund" : "Shield growth from tax"}
