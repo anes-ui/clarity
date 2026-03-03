@@ -63,32 +63,30 @@ export default function PortfolioSnapshot({
                     <Info size={16} /> Allocation vs Target
                 </h4>
 
-                <div className="flex flex-col md:flex-row items-center justify-around gap-8">
+                <div className="flex flex-col md:flex-row items-start justify-center gap-12">
                     {/* Current Allocation */}
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center flex-1 min-w-0">
                         <p className="text-[12px] uppercase font-bold text-ws-dune mb-4 tracking-[0.08em]">Current</p>
-                        <div className="h-32 w-32 relative">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={currentData}
-                                        innerRadius={35}
-                                        outerRadius={50}
-                                        paddingAngle={4}
-                                        dataKey="value"
-                                        stroke="none"
-                                    >
-                                        {currentData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.color} />
-                                        ))}
-                                    </Pie>
-                                </PieChart>
-                            </ResponsiveContainer>
+                        <div className="flex justify-center items-center">
+                            <PieChart width={140} height={140}>
+                                <Pie
+                                    data={currentData}
+                                    innerRadius={45}
+                                    outerRadius={65}
+                                    paddingAngle={4}
+                                    dataKey="value"
+                                    stroke="none"
+                                >
+                                    {currentData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                            </PieChart>
                         </div>
-                        <div className="mt-6 flex gap-4 text-[12px] font-bold uppercase tracking-widest text-[#32302F]">
+                        <div className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] font-bold uppercase tracking-widest text-[#32302F]">
                             {currentData.map(d => (
-                                <div key={d.name} className="flex items-center gap-1.5">
-                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color.startsWith('var') ? '#00d492' : d.color }} />
+                                <div key={d.name} className="flex items-center gap-1.5 whitespace-nowrap">
+                                    <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: d.color.startsWith('var') ? '#00d492' : d.color }} />
                                     <span>{d.value}% <span className="text-ws-text-muted font-semibold">{d.name}</span></span>
                                 </div>
                             ))}
@@ -96,30 +94,28 @@ export default function PortfolioSnapshot({
                     </div>
 
                     {/* Target Allocation */}
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center flex-1 min-w-0">
                         <p className="text-[12px] uppercase font-bold text-ws-text-muted mb-4 tracking-[0.08em]">Target</p>
-                        <div className="h-32 w-32 relative opacity-80">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={targetData}
-                                        innerRadius={35}
-                                        outerRadius={50}
-                                        paddingAngle={4}
-                                        dataKey="value"
-                                        stroke="none"
-                                    >
-                                        {targetData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.color} />
-                                        ))}
-                                    </Pie>
-                                </PieChart>
-                            </ResponsiveContainer>
+                        <div className="opacity-80 flex justify-center items-center">
+                            <PieChart width={140} height={140}>
+                                <Pie
+                                    data={targetData}
+                                    innerRadius={45}
+                                    outerRadius={65}
+                                    paddingAngle={4}
+                                    dataKey="value"
+                                    stroke="none"
+                                >
+                                    {targetData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                            </PieChart>
                         </div>
-                        <div className="mt-6 flex gap-4 text-[12px] font-bold uppercase tracking-widest opacity-60 text-[#32302F]">
+                        <div className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] font-bold uppercase tracking-widest opacity-60 text-[#32302F]">
                             {targetData.map(d => (
-                                <div key={d.name} className="flex items-center gap-1.5">
-                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color.replace('80', '') }} />
+                                <div key={d.name} className="flex items-center gap-1.5 whitespace-nowrap">
+                                    <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: d.color.replace('80', '') }} />
                                     <span>{d.value}% <span className="text-ws-text-muted font-semibold">{d.name}</span></span>
                                 </div>
                             ))}
