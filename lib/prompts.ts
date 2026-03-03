@@ -21,7 +21,7 @@ Key Instructions:
    - **Conversation to Have**: One specific topic to discuss with a human advisor.`;
 }
 
-export function buildUserPrompt(report: AnalysisReport): string {
+export function buildUserPrompt(report: AnalysisReport, scenario?: string): string {
     const { user, gaps, netWorth, estimatedTaxRefundOpportunity } = report;
 
     const goalsInfo = user.goals.map(g =>
@@ -71,5 +71,8 @@ ${gapsInfo}
 Estimated RRSP Tax Refund Opportunity: $${estimatedTaxRefundOpportunity.toLocaleString()}
 Human Escalation Required by Engine: ${report.humanEscalationRequired ? `Yes. Reason: ${report.humanEscalationReason}` : 'No'}
 
-INSTRUCTION: Generate a personalized financial guidance session for this user. Be specific. Use their real numbers. Prioritize ruthlessly. Address their recent life events if relevant.`;
+${scenario
+            ? `INSTRUCTION: The user is asking a specific "What-if" scenario question based on their profile. Answer ONLY their scenario question directly and concisely (under 150 words). Do not generate a full financial plan, priority list, next steps, or regular session format. Focus entirely on the math and strategy related to this specific question: "${scenario}"`
+            : `INSTRUCTION: Generate a personalized financial guidance session for this user. Be specific. Use their real numbers. Prioritize ruthlessly. Address their recent life events if relevant.`
+        }`;
 }

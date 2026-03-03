@@ -39,14 +39,16 @@ export async function POST(req: Request) {
             });
         }
 
-        // If scenario is provided, append it to the user prompt
-        const userPrompt = scenario
-            ? buildUserPrompt(report) + `\n\nSCENARIO QUESTION: ${scenario}`
-            : buildUserPrompt(report)
+        const userPrompt = buildUserPrompt(report, scenario);
+
+        // For scenario exploration, use a more relaxed system prompt so it focuses exclusively on the math and answer
+        const systemPrompt = scenario
+            ? `You are Clarity, Wealthsimple's AI financial guidance engine. Answer the user's specific scenario question based on their profile. Do not output a full analysis or use the standard report format.`
+            : buildSystemPrompt();
 
         const model = genAI.getGenerativeModel({
             model: "gemini-flash-latest",
-            systemInstruction: buildSystemPrompt(),
+            systemInstruction: systemPrompt,
         });
 
         const result = await model.generateContentStream(userPrompt);
