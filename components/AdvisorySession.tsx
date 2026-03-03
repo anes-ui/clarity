@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Sparkles, Play, Bot, RotateCcw } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
+import ActionCard from "./ActionCard";
+import { GenerativeUI } from "./GenerativeUI";
 
 export default function AdvisorySession({
     userId
@@ -91,6 +93,41 @@ export default function AdvisorySession({
                                         li: ({ ...props }) => <li className="pl-1" {...props} />,
                                         strong: ({ ...props }) => <strong className="text-ws-dune font-semibold" {...props} />,
                                         hr: ({ ...props }) => <hr className="my-8 border-ws-border border-t" {...props} />,
+                                        code: ({ inline, className, children, ...props }: { inline?: boolean; className?: string; children?: React.ReactNode }) => {
+                                            const match = /language-(\w+:\w+)/.exec(className || '');
+                                            const lang = match ? match[1] : '';
+
+                                            if (!inline && lang === 'json:action') {
+                                                try {
+                                                    const data = JSON.parse(String(children).replace(/\n$/, ''));
+                                                    return (
+                                                        <ActionCard
+                                                            type={data.type}
+                                                            title={data.title}
+                                                            description={data.description}
+                                                            amount={data.amount}
+                                                            from={data.from}
+                                                            to={data.to}
+                                                        />
+                                                    );
+                                                } catch (e) {
+                                                    console.error("Failed to parse action JSON", e);
+                                                    return <code className={className} {...props}>{children}</code>;
+                                                }
+                                            }
+
+                                            if (!inline && lang === 'json:ui') {
+                                                try {
+                                                    const data = JSON.parse(String(children).replace(/\n$/, ''));
+                                                    return <GenerativeUI type={data.type} props={data} />;
+                                                } catch (e) {
+                                                    console.error("Failed to parse UI JSON", e);
+                                                    return <code className={className} {...props}>{children}</code>;
+                                                }
+                                            }
+
+                                            return <code className={className} {...props}>{children}</code>;
+                                        }
                                     }}
                                 >
                                     {advice}
