@@ -1,4 +1,5 @@
 import { getUserById } from "@/lib/users";
+import Link from "next/link";
 import { runFullAnalysis } from "@/lib/analyzer";
 import { notFound } from "next/navigation";
 import PortfolioSnapshot from "@/components/PortfolioSnapshot";
@@ -20,11 +21,13 @@ export default function Dashboard({ params }: { params: { userId: string } }) {
             <nav className="border-b border-white/5 bg-black/60 backdrop-blur-md sticky top-0 z-50">
                 <div className="max-w-[1600px] mx-auto px-8 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="40" height="40" rx="8" fill="#00d492" />
-                            <path d="M12 28V12H16L20 18L24 12H28V28" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <span className="font-bold text-lg tracking-tight">Wealthsimple Clarity</span>
+                        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                            <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="40" height="40" rx="8" fill="#00d492" />
+                                <path d="M12 28V12H16L20 18L24 12H28V28" stroke="black" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <span className="font-bold text-lg tracking-tight">Wealthsimple Clarity</span>
+                        </Link>
                         <span className="ml-2 px-1.5 py-0.5 rounded border border-white/10 bg-white/5 text-[9px] font-bold uppercase tracking-widest text-[#00d492]">Demo Mode</span>
                     </div>
                     <div className="flex items-center gap-4 text-xs font-semibold uppercase tracking-widest text-gray-500">
@@ -37,7 +40,7 @@ export default function Dashboard({ params }: { params: { userId: string } }) {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
                     {/* LEFT COLUMN: User Context & Portfolio */}
-                    <div className="lg:col-span-4 space-y-8">
+                    <div className="lg:col-span-4 space-y-6">
                         <header className="space-y-6">
                             <div className="flex items-start justify-between">
                                 <div>
@@ -77,7 +80,7 @@ export default function Dashboard({ params }: { params: { userId: string } }) {
                     </div>
 
                     {/* RIGHT COLUMN: Advisory & Intelligence */}
-                    <div className="lg:col-span-8 space-y-8">
+                    <div className="lg:col-span-8 space-y-6">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-xl font-semibold flex items-center gap-2">
                                 <TrendingUp size={20} className="text-[#00d492]" />

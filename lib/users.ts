@@ -36,11 +36,11 @@ export const USERS: WealthsimpleUser[] = [
         name: "Sofia Chen",
         age: 29,
         province: "Ontario",
-        income: 105000,
+        income: 130000,
         lifeStage: "young-professional",
         accounts: {
             tfsa: { balance: 112000, contributionRoom: 0, ytdContributed: 7000 },
-            rrsp: { balance: 0, contributionRoom: 48000, ytdContributed: 0 },
+            rrsp: { balance: 0, contributionRoom: 25000, ytdContributed: 0 },
             nonReg: { balance: 0 },
             cashSavings: { balance: 22000 }
         },
@@ -88,7 +88,7 @@ export const USERS: WealthsimpleUser[] = [
                 id: "education-fund",
                 name: "Kids Education",
                 targetAmount: 100000,
-                currentAmount: 15000,
+                currentAmount: 0,
                 targetDate: "2035-09-01",
                 monthlyContribution: 400,
                 requiredMonthlyContribution: 550
@@ -109,7 +109,7 @@ export const USERS: WealthsimpleUser[] = [
     {
         id: "isabelle-tremblay",
         name: "Isabelle Tremblay",
-        age: 57,
+        age: 58,
         province: "Quebec",
         income: 180000,
         lifeStage: "pre-retirement",

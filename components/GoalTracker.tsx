@@ -28,23 +28,23 @@ export default function GoalTracker({ goals }: { goals: WealthsimpleUser["goals"
 
                     return (
                         <div key={goal.id} className="ws-card p-4 bg-white/[0.02] border-white/5">
-                            <div className="flex justify-between items-start mb-2">
+                            <div className="flex justify-between items-start mb-3">
                                 <h4 className="font-bold text-sm tracking-tight">{goal.name}</h4>
-                                <span className={`text-[8px] uppercase tracking-widest font-bold px-1.5 py-0.5 rounded ${statusColor}`}>
+                                <span className={`text-[9px] uppercase tracking-widest font-bold px-2 py-1 rounded ${statusColor}`}>
                                     {statusLabel}
                                 </span>
                             </div>
 
-                            <div className="space-y-1.5">
-                                <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                            <div className="space-y-2">
+                                <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
                                     <div
                                         className={`h-full ${statusLabel === "Behind" ? "bg-red-400" : statusLabel === "At Risk" ? "bg-amber-400" : "bg-[#00d492]"}`}
                                         style={{ width: `${Math.min(progress, 100)}%` }}
                                     />
                                 </div>
-                                <div className="flex justify-between text-[9px] font-bold text-gray-500 uppercase tracking-tighter">
-                                    <span>${goal.currentAmount.toLocaleString()}</span>
-                                    <span>Target: {new Date(goal.targetDate).getFullYear()}</span>
+                                <div className="flex justify-between text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
+                                    <span>Current: ${goal.currentAmount.toLocaleString()}</span>
+                                    <span>Target: ${goal.targetAmount.toLocaleString()}</span>
                                 </div>
                             </div>
                         </div>

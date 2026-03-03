@@ -44,7 +44,7 @@ export default function AdvisorySession({
                 if (done) break;
                 setAdvice(prev => prev + decoder.decode(value));
             }
-        } catch (err) {
+        } catch {
             setError("Clarity is currently unavailable. Please try again.");
         } finally {
             setIsLoading(false);
@@ -79,7 +79,7 @@ export default function AdvisorySession({
                             <div className="w-8 h-8 rounded bg-[#00d492] flex items-center justify-center text-black shrink-0">
                                 <Bot size={18} />
                             </div>
-                            <div className="flex-1 text-sm leading-relaxed text-gray-200 space-y-4 prose prose-invert">
+                            <div className="flex-1 text-base leading-relaxed text-gray-200 space-y-4 prose prose-invert max-w-none">
                                 {advice.split('\n').map((line, i) => {
                                     if (line.startsWith('##')) {
                                         return <h3 key={i} className="text-lg font-bold text-white pt-4 pb-2 border-b border-white/10 uppercase tracking-widest text-[#00d492]">{line.replace('## ', '')}</h3>

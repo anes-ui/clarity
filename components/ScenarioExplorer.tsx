@@ -33,7 +33,7 @@ export default function ScenarioExplorer({ userId }: { userId: string }) {
                 if (done) break;
                 setAnswer(prev => prev + decoder.decode(value));
             }
-        } catch (err) {
+        } catch {
             setAnswer("Could not run scenario exploration.");
         } finally {
             setLoading(false);
@@ -53,9 +53,9 @@ export default function ScenarioExplorer({ userId }: { userId: string }) {
                             key={p.label}
                             onClick={() => runScenario(p.prompt)}
                             disabled={loading}
-                            className="p-3 text-left bg-white/5 border border-white/5 rounded-lg hover:border-[#00d492]/50 transition-all group disabled:opacity-50"
+                            className="px-4 py-4 text-center bg-white/5 border border-white/10 rounded-xl hover:border-[#00d492]/50 hover:bg-[#00d492]/5 transition-all group disabled:opacity-50"
                         >
-                            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">{p.label}</p>
+                            <p className="text-[10px] font-bold text-[#00d492] uppercase tracking-widest mb-1.5">{p.label}</p>
                             <p className="text-xs text-gray-300 group-hover:text-white transition-colors line-clamp-2 leading-relaxed">
                                 {p.prompt}
                             </p>

@@ -96,7 +96,6 @@ export function analyzePortfolioDrift(user: WealthsimpleUser): GapResult {
 
 export function analyzeGoalHealth(user: WealthsimpleUser): GapResult[] {
     return user.goals.map(goal => {
-        const remainingAmount = goal.targetAmount - goal.currentAmount;
         const shortfall = goal.requiredMonthlyContribution - goal.monthlyContribution;
         const shortfallPercent = (shortfall / goal.requiredMonthlyContribution) * 100;
 

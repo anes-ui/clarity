@@ -21,7 +21,7 @@ export default function LandingPage() {
               <span className="premium-gradient-text">Fully understood.</span>
             </h1>
             <p className="text-lg text-gray-500 max-w-xl mx-auto font-medium leading-relaxed">
-              AI-native financial guidance built for Wealthsimple's 3 million members.
+              AI-native financial guidance built for Wealthsimple&apos;s 3 million members.
             </p>
           </div>
         </div>
